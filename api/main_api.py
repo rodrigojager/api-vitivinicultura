@@ -1,6 +1,7 @@
 # main_api.py
 import os
 import datetime, sqlalchemy, databases
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Depends, status, Query
 from fastapi.responses import HTMLResponse
 from pathlib import Path
@@ -31,24 +32,25 @@ async def get_user(username: str):
     query = users.select().where(users.c.username == username)
     return await database.fetch_one(query)
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await database.connect()
+    print("Database connection established.")
+    try:
+        yield
+    finally:
+        await database.disconnect()
+        print("Database connection closed.")
+
 app = FastAPI(
     title="Dados de uva, vinho e derivados",
     description="API para buscar informações referentes à quantidade de uvas processadas, produção e comercialização de vinhos, suco e derivados provenientes do Estado do Rio Grande do Sul",
     version="1.0.0",
     docs_url=None,
     redoc_url="/redoc",
-    openapi_url="/openapi.json"
+    openapi_url="/openapi.json",
+    lifespan=lifespan
 )
-
-@app.on_event("startup")
-async def startup():
-    await database.connect()
-
-@app.on_event("shutdown")
-async def shutdown():
-    await database.disconnect()
-
-# Seus endpoints de login e docs também podem ficar aqui, usando funções do módulo auth
 
 @app.get("/docs", include_in_schema=False)
 async def custom_swagger_ui_html():
