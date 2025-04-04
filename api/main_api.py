@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import List
 from auth import jwt_auth, create_access_token, verify_password
 from playwright.async_api import async_playwright
-from scraping import run_scraping
+from services import run_scraping
 from models import Production_or_Commercialization
 
 # Configuração do banco
