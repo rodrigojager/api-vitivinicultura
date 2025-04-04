@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+playwright
+PyJWT
+databases[asyncpg]
+sqlalchemy
+bcrypt
+psycopg2-binary
+python-dotenv

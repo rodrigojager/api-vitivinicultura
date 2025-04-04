@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlalchemy
+databases[asyncpg]
+bcrypt
+python-dotenv
+jinja2
+psycopg2-binary
+python-multipart
+
