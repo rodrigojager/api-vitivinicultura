@@ -1,7 +1,6 @@
-# models.py
 from pydantic import BaseModel
 
-class Production(BaseModel):
+class Production_or_Commercialization(BaseModel):
     category: str
     product: str
     quantity: float

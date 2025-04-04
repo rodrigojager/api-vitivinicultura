@@ -8,7 +8,7 @@ from typing import List
 from auth import jwt_auth, create_access_token, verify_password
 from playwright.async_api import async_playwright
 from scraping import run_scraping
-from models import Production
+from models import Production_or_Commercialization
 
 # Configuração do banco
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -67,12 +67,22 @@ async def login(username: str, password: str):
 
 @app.get("/production", summary="Produção de vinhos, sucos e derivados do Rio Grande do Sul", tags=["Production"])
 async def get_production(
-    ano: int = Query(..., description="Ano obrigatório"),
+    year: int = Query(..., description="Ano obrigatório"),
     user: dict = Depends(jwt_auth)
 ):
     try:
-        productions = await run_scraping(ano)
+        productions = await run_scraping(year,'opt_02')
         return {"productions": productions}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/commercialization", summary="Comercialização de vinhos e derivados no Rio Grande do Sul", tags=["Commercialization"])
+async def get_production(
+    year: int = Query(..., description="Ano obrigatório"),
+    user: dict = Depends(jwt_auth)
+):
+    try:
+        commercializations = await run_scraping(year,'opt_04')
+        return {"commercializations": commercializations}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

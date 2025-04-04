@@ -1,59 +1,72 @@
 import re
 from typing import List
-from playwright.async_api import async_playwright, Page
-from models import Production
+from playwright.async_api import async_playwright, Page, Locator
+from models import Production_or_Commercialization
 
-async def fetch_productions(page: Page, ano: int) -> List[Production]:
-    productions: List[Production] = []
-    # Navega para a página
-    url = f"http://vitibrasil.cnpuv.embrapa.br/index.php?ano=2016&opcao=opt_02"
+
+async def get_processed_page_data(page: Page, year: int, option: str):
+    url = f"http://vitibrasil.cnpuv.embrapa.br/index.php?ano={year}&opcao={option}"
     await page.goto(url, timeout=40000, wait_until="domcontentloaded")
-    
-    # Verifica se o elemento chave existe
     await page.wait_for_selector("div.content_center", timeout=25000)
-    
-    # Extração do ano da página
-    div_conteudo = page.locator("div.content_center")
-    div_informacao = div_conteudo.locator("p.text_center")
-    texto = await div_informacao.text_content()
-    match = re.search(r"\[(\d{4})\]", texto)
-    ano_producao = int(match.group(1)) if match else ano
-
+    valid_year = get_year(page, year)
     # Extração dos dados da tabela
-    div_tabela_dados = page.locator("table.tb_base.tb_dados")
-    div_body_tabela_dados = div_tabela_dados.locator("tbody")
-    ultima_categoria = ""
-    rows = await div_body_tabela_dados.locator("tr").all()
+    div_data_table = page.locator("table.tb_base.tb_dados")
+    div_body_data_table = div_data_table.locator("tbody")
+    rows = await div_body_data_table.locator("tr").all()
+    process_rows_by_option(option, rows, valid_year)
+
+async def get_year(page: Page, year: int):
+    div_content = page.locator("div.content_center")
+    div_information = div_content.locator("p.text_center")
+    text = await div_information.text_content()
+    match = re.search(r"\[(\d{4})\]", text)
+    return int(match.group(1)) if match else year
+
+async def process_rows_by_option(option: str, rows: List[Locator], year: int):
+    try:
+        func = dispatch_map[option]
+    except KeyError:
+        raise ValueError(f"Option '{option}' not implemented.")
+    return await func(rows, year)
+
+async def process_production_or_commercialization(rows: List[Locator], year: int) -> List[Production_or_Commercialization]:
+    productions_or_commercialization: List[Production_or_Commercialization] = []
+    last_category = ""
     for row in rows:
-        colunas = row.locator("td")
-        primeira_coluna = colunas.nth(0)
-        classe = await primeira_coluna.get_attribute("class")
-        if classe == "tb_item":
-            ultima_categoria = (await primeira_coluna.text_content()).strip()
+        columns = row.locator("td")
+        first_collumn = columns.nth(0)
+        classes = await first_collumn.get_attribute("class")
+        if classes == "tb_item":
+            last_category = (await first_collumn.text_content()).strip()
         else:
-            produto = (await primeira_coluna.text_content()).strip()
-            valor_str = (await colunas.nth(1).text_content()).strip().replace(".", "").replace(",", "").replace("-","0")
+            product = (await first_collumn.text_content()).strip()
+            str_value = (await columns.nth(1).text_content()).strip().replace(".", "").replace(",", "").replace("-","0")
             try:
-                quantidade = float(valor_str)
+                quantity = float(str_value)
             except:
                 continue
-            productions.append(
-                Production(
-                    category=ultima_categoria,
-                    product=produto,
-                    quantity=quantidade,
+            productions_or_commercialization.append(
+                Production_or_Commercialization(
+                    category=last_category,
+                    product=product,
+                    quantity=quantity,
                     unit="L",
                     measurement="volume",
-                    year=ano_producao
+                    year=year
                 )
             )
-    return productions
+    return productions_or_commercialization
 
-async def run_scraping(ano: int) -> List[Production]:
+dispatch_map = {
+    'opt_02': process_production_or_commercialization,
+    'opt_04': process_production_or_commercialization,
+}
+
+
+async def run_scraping(year: int, option):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
-        productions = await fetch_productions(page, ano)
+        processed_data = await get_processed_page_data(page, year,option)
         await browser.close()
-    return productions
-
+    return processed_data
