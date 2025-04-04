@@ -7,3 +7,12 @@ class Production_or_Commercialization(BaseModel):
     unit: str
     measurement: str
     year: int
+
+class Processing(BaseModel):
+    group: str
+    category: str
+    farm: str
+    quantity: float
+    unit: str
+    measurement: str
+    year: int

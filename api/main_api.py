@@ -1,4 +1,3 @@
-# main_api.py
 import os
 import datetime, sqlalchemy, databases
 from contextlib import asynccontextmanager
@@ -16,7 +15,6 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 database = databases.Database(DATABASE_URL)
 metadata = sqlalchemy.MetaData()
 
-# Tabela de usuários (idem ao seu código original)
 users = sqlalchemy.Table(
     "users",
     metadata,
@@ -78,8 +76,19 @@ async def get_production(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/processing", summary="Quantidade de uvas processadas no Rio Grande do Sul", tags=["Processing"])
+async def get_processing(
+    year: int = Query(..., description="Ano obrigatório"),
+    user: dict = Depends(jwt_auth)
+):
+    try:
+        processing = await run_scraping(year,'opt_03')
+        return {"processing": processing}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.get("/commercialization", summary="Comercialização de vinhos e derivados no Rio Grande do Sul", tags=["Commercialization"])
-async def get_production(
+async def get_commercialization(
     year: int = Query(..., description="Ano obrigatório"),
     user: dict = Depends(jwt_auth)
 ):
