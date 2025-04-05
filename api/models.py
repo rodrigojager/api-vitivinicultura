@@ -16,3 +16,13 @@ class Processing(BaseModel):
     unit: str
     measurement: str
     year: int
+
+class Importing_or_Exporting(BaseModel):
+    group: str
+    country: str
+    quantity: float
+    unit: str
+    measurement: str
+    value: float
+    currency: str
+    year: int

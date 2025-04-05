@@ -6,7 +6,6 @@ from fastapi.responses import HTMLResponse
 from pathlib import Path
 from typing import List
 from auth import jwt_auth, create_access_token, verify_password
-from playwright.async_api import async_playwright
 from services import run_scraping
 from models import Production_or_Commercialization
 
@@ -95,5 +94,27 @@ async def get_commercialization(
     try:
         commercializations = await run_scraping(year,'opt_04')
         return {"commercializations": commercializations}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/importing", summary="Importação de derivados de uva", tags=["Importing"])
+async def get_importing(
+    year: int = Query(..., description="Ano obrigatório"),
+    user: dict = Depends(jwt_auth)
+):
+    try:
+        importings = await run_scraping(year,'opt_05')
+        return {"importings": importings}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+        
+@app.get("/exporting", summary="Exportação de derivados de uva", tags=["Exporting"])
+async def get_exporting(
+    year: int = Query(..., description="Ano obrigatório"),
+    user: dict = Depends(jwt_auth)
+):
+    try:
+        exportings = await run_scraping(year,'opt_06')
+        return {"exportings": exportings}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
