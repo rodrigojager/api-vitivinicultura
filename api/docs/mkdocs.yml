@@ -1,0 +1,11 @@
+site_name: "Documentação da API"
+theme:
+  name: material
+docs_dir: .
+site_dir: ../site
+nav:
+  - Apresentação: apresentacao.md
+  - Documentação da API: documentacao_api.md
+  - Fluxo de Scraping: fluxo_scraping.md
+  - Modelos de Dados: modelos_dados.md
+  - Estrutura dos Arquivos: estrutura_arquivos.md

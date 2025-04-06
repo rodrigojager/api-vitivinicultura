@@ -1,0 +1,773 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../api_endpoints/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>Overview - Minha API Documentada</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fluxo-de-requisicao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Minha API Documentada" class="md-header__button md-logo" aria-label="Minha API Documentada" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Minha API Documentada
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Minha API Documentada" class="md-nav__button md-logo" aria-label="Minha API Documentada" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Minha API Documentada
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fluxo-de-requisicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fluxo de Requisição
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fluxo de Requisição">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#funcionamento-dos-servicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Funcionamento dos Serviços
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-dicionarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso de Dicionários
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral-da-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visão Geral da API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visão Geral da API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introdução
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionalidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Funcionalidades
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estrutura-do-banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estrutura do Banco de Dados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Estrutura do Banco de Dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-production_or_commercialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Production_or_Commercialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Processing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-importing_or_exporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Importing_or_Exporting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoints-da-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoints da API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-de-autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fluxo de Autenticação
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classes_methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Classes e Métodos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database_structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estrutura do Banco de Dados
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../services.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Serviços
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fluxo-de-requisicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fluxo de Requisição
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fluxo de Requisição">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#funcionamento-dos-servicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Funcionamento dos Serviços
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-dicionarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso de Dicionários
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral-da-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visão Geral da API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visão Geral da API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introdução
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionalidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      Funcionalidades
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estrutura-do-banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estrutura do Banco de Dados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Estrutura do Banco de Dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-production_or_commercialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Production_or_Commercialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Processing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-importing_or_exporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Importing_or_Exporting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoints-da-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoints da API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluxo-de-autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fluxo de Autenticação
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h2 id="fluxo-de-requisicao">Fluxo de Requisição</h2>
+<p>A requisição à API é iniciada no arquivo <code>main_api.py</code>, onde os endpoints são definidos. Quando um cliente faz uma requisição a um endpoint, o FastAPI direciona essa requisição para a função correspondente.</p>
+<h3 id="funcionamento-dos-servicos">Funcionamento dos Serviços</h3>
+<p>Cada endpoint chama um serviço específico, que contém a lógica de negócios necessária para processar a requisição. Por exemplo, ao chamar o endpoint <code>/production</code>, a função correspondente invoca o serviço que realiza o scraping dos dados de produção. Os serviços utilizam funções auxiliares para processar os dados e retornar as informações necessárias.</p>
+<h3 id="uso-de-dicionarios">Uso de Dicionários</h3>
+<p>Os serviços fazem uso de dicionários definidos no arquivo <code>mappers.py</code> para mapear opções de scraping a grupos de dados. Esses dicionários ajudam a organizar e simplificar o código, permitindo que os serviços acessem rapidamente as informações necessárias para processar as requisições.</p>
+<h1 id="visao-geral-da-api">Visão Geral da API</h1>
+<h2 id="introducao">Introdução</h2>
+<p>Esta API serve como um serviço de backend para gerenciar informações sobre a produção, processamento, comercialização, importação e exportação de uvas e seus derivados no Estado do Rio Grande do Sul. Ela fornece um conjunto de endpoints que permitem que os clientes interajam com os dados e realizem operações específicas.</p>
+<h2 id="funcionalidades">Funcionalidades</h2>
+<ul>
+<li><strong>Autenticação de Usuário</strong>: Processos seguros de login e registro utilizando JWT.</li>
+<li><strong>Gerenciamento de Dados</strong>: Operações CRUD para gerenciar informações sobre produção, processamento, importação e exportação de uvas.</li>
+<li><strong>Web Scraping</strong>: Coleta de dados em tempo real sobre a produção e comercialização de uvas.</li>
+</ul>
+<h2 id="estrutura-do-banco-de-dados">Estrutura do Banco de Dados</h2>
+<p>A estrutura do banco de dados é utilizada para armazenar dados de registro de usuários que utilizarão a API. O banco de dados contém uma tabela de usuários com os seguintes campos:</p>
+<ul>
+<li><strong>id</strong>: Identificador único do usuário.</li>
+<li><strong>username</strong>: Nome de usuário único.</li>
+<li><strong>password_hash</strong>: Hash da senha do usuário.</li>
+<li><strong>created_at</strong>: Data e hora de criação do registro.</li>
+</ul>
+<p>Os dados obtidos através do scraping são representados pelos seguintes modelos:</p>
+<h3 id="1-production_or_commercialization">1. <code>Production_or_Commercialization</code></h3>
+<ul>
+<li><strong>category</strong>: Categoria do produto (ex: VINHO DE MESA)</li>
+<li><strong>product</strong>: Tipo do produto (ex: Tinto)</li>
+<li><strong>quantity</strong>: Quantidade anual (ex: 103916391)</li>
+<li><strong>unit</strong>: Unidade de medida (ex: L)</li>
+<li><strong>measurement</strong>: Grandeza medida (ex: volume)</li>
+<li><strong>year</strong>: Ano de referência (ex: 2020)</li>
+</ul>
+<h3 id="2-processing">2. <code>Processing</code></h3>
+<ul>
+<li><strong>group</strong>: Grupo da uva (ex: Viníferas)</li>
+<li><strong>category</strong>: Categoria do cultivo (ex: TINTAS)</li>
+<li><strong>farm</strong>: Casta de cultivo (ex: TIAlicante Bouschet)</li>
+<li><strong>quantity</strong>: Quantidade anual (ex: 2272985)</li>
+<li><strong>unit</strong>: Unidade de medida (ex: Kg)</li>
+<li><strong>measurement</strong>: Grandeza medida (ex: mass)</li>
+<li><strong>year</strong>: Ano de referência (ex: 2020)</li>
+</ul>
+<h3 id="3-importing_or_exporting">3. <code>Importing_or_Exporting</code></h3>
+<ul>
+<li><strong>group</strong>: Grupo de derivados de uva (ex: Vinhos de mesa)</li>
+<li><strong>country</strong>: País comercializante (ex: Alemanha)</li>
+<li><strong>quantity</strong>: Quantidade comercializada (ex: 136992)</li>
+<li><strong>unit</strong>: Unidade de medida (ex: Kg)</li>
+<li><strong>measurement</strong>: Grandeza medida (ex: mass)</li>
+<li><strong>value</strong>: Valor transacionado (ex: 504168)</li>
+<li><strong>currency</strong>: Moeda (ex: US$)</li>
+<li><strong>year</strong>: Ano de referência (ex: 2020)</li>
+</ul>
+<h2 id="endpoints-da-api">Endpoints da API</h2>
+<p>A API possui os seguintes endpoints principais:</p>
+<ul>
+<li><strong>POST /login</strong>: Autentica um usuário e retorna um token de acesso.</li>
+<li><strong>GET /production</strong>: Retorna dados sobre a produção de vinhos, sucos e derivados.</li>
+<li><strong>GET /processing</strong>: Retorna a quantidade de uvas processadas.</li>
+<li><strong>GET /commercialization</strong>: Retorna dados sobre a comercialização de vinhos e derivados.</li>
+<li><strong>GET /importing</strong>: Retorna dados sobre a importação de derivados de uva.</li>
+<li><strong>GET /exporting</strong>: Retorna dados sobre a exportação de derivados de uva.</li>
+</ul>
+<h2 id="fluxo-de-autenticacao">Fluxo de Autenticação</h2>
+<p>A autenticação é gerenciada através de JWT. O usuário deve fornecer um nome de usuário e senha para obter um token de acesso. Este token deve ser incluído em todas as requisições subsequentes para acessar os endpoints protegidos.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

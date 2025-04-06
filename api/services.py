@@ -6,7 +6,7 @@ from utils import convert_numeric_string_to_float
 from mappers import dictionary_processing_suboption_to_group, dictionary_importing_suboption_to_group, dictionary_exporting_suboption_to_group
 
 # ITERADOR DE LÓGICA NO CASO DE PÁGINAS QUE TEM VÁRIAS ABAS
-async def function_iterator(page: Page, year: int, option: str):
+async def processing_iterator(page: Page, year: int, option: str):
     data = []
     number_iterations = len(dictionary_mapping_by_page[option])
     for i in range(1, 1 + number_iterations):
@@ -25,7 +25,7 @@ async def unique_iteration_processing(page: Page, year: int, option: str, subopt
         await page.goto(url, timeout=40000, wait_until="domcontentloaded")
         await page.wait_for_selector("div.content_center", timeout=25000)
         valid_year = await get_year(page, year)
-        # Extração dos dados da tabela
+        # EXTRAÇÃO DOS DADOS DA TABELA
         div_data_table = page.locator("table.tb_base.tb_dados")
         div_body_data_table = div_data_table.locator("tbody")
         rows = await div_body_data_table.locator("tr").all()
@@ -170,8 +170,8 @@ method_mapping_by_page = {
 # MAPEAMENTO DE CADA PÁGINA PARA O RESPECTIVO MÉTODO RESPONSÁVEL POR GERENCIAR QUANTAS VEZES O MÉTODO PRINCIPAL DEVE SER CHAMADO (UMA PARA CADA ABA)
 function_iterator = {
     'opt_02': unique_iteration_processing,
-    'opt_03': function_iterator,
+    'opt_03': processing_iterator,
     'opt_04': unique_iteration_processing,
-    'opt_05': function_iterator,
-    'opt_06': function_iterator,
+    'opt_05': processing_iterator,
+    'opt_06': processing_iterator,
 }

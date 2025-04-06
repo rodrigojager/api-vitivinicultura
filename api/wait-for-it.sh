@@ -11,3 +11,4 @@ until nc -z "$host" "$port"; do
 done
 
 exec "$@"
+

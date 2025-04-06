@@ -28,21 +28,7 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ./api:/app
-
-  registration:
-    build: ./registration
-    env_file: .env
-    depends_on:
-      - db
-    environment:
-      - DATABASE_URL=${DATABASE_URL}
-    ports:
-      - "8001:8001"
-    networks:
-      - mynetwork
-    volumes:
-      - ./registration:/app
+      - ./api:/app # Mount the api directory for development changes
 
 volumes:
   postgres_data:
@@ -50,4 +36,3 @@ volumes:
 networks:
   mynetwork:
     driver: bridge
-

@@ -7,3 +7,8 @@ sqlalchemy
 bcrypt
 psycopg2-binary
 python-dotenv
+jinja2
+python-multipart
+httpx
+mkdocs
+mkdocs-material

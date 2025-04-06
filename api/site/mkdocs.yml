@@ -1,0 +1,14 @@
+site_name: "Minha API Documentada"
+theme:
+  name: material
+  # Para customizar o header, você pode usar a opção custom_dir (ver abaixo)
+  # custom_dir: overrides
+docs_dir: .
+site_dir: ../site
+nav:
+  - Home: index.md
+  - Overview: overview.md
+  - API: api_endpoints.md
+  - Classes e Métodos: classes_methods.md
+  - Estrutura do Banco de Dados: database_structure.md
+  - Serviços: services.md

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Register - Brand</title>
+    <link rel="icon" type="image/png" sizes="591x591" href="assets/img/Logo-icon.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+    <link rel="stylesheet" href="assets/css/sweetalert2.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100 body-register-background-color">
+    <nav class="navbar navbar-expand-lg fixed-top bg-body clean-navbar">
+        <div class="container"><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1"><a href="#"><img src="assets/img/Logo.png" width="13%"></a>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/docs/">DOCUMENTAÇÃO</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/api">API</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/registration">REGISTRAR</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="flex-fill main-register-spacing">
+        <section class="clean-block clean-form dark section-register-spacing">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="h2-registration-colors">Registro</h2>
+                    <p>Para utilizar a API é necessário fazer um cadastro.</p>
+                </div>
+                <form id="registerForm" method="post" action="/register">
+                    <div class="mb-3"><label class="form-label label-register" for="username">Usuário</label><input class="form-control item" type="text" id="username" name="username" data-bs-theme="light"></div>
+                    <div class="mb-3"><label class="form-label label-register" for="password">Senha</label><input class="form-control item" type="password" id="password" name="password" data-bs-theme="light"></div>
+                    <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                    <div class="mb-3"></div><button class="btn btn-primary" id="btn-submit-register" type="submit">REGISTRAR</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer class="page-footer dark mt-auto">
+        <div class="footer-copyright footer-registration-spacing">
+            <p class="p-footer-margin">Jäger Solutions ® 2025&nbsp;</p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.min.js"></script>
+    <script src="assets/js/sweetalert2.all.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        $(document).ready(function(){
+            $("#registerForm").submit(function(e){
+                e.preventDefault();
+                if ($.trim($('#username').val()) === '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Você não informou o usuário.'
+                    });
+                    return;
+                }
+                if ($.trim($('#password').val()) === '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Você não informou a senha.'
+                    });
+                    return;
+                }
+                // Pega o valor do reCAPTCHA
+                var recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Por favor, confirme que você não é um robô.'
+                    });
+                    return;
+                }
+    
+                var formData = $(this).serialize() + '&recaptcha_response=' + recaptchaResponse;
+    
+                $.ajax({
+                    url: '/register',
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if(response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sucesso',
+                                text: 'Usuário registrado com sucesso!'
+                            }).then(() => {
+                                document.getElementById("registerForm").reset();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro',
+                                text: response.error
+                            });
+                            grecaptcha.reset();
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro',
+                            text: 'Ocorreu um erro ao registrar o usuário.'
+                        });
+                        grecaptcha.reset();
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+
+</html>
