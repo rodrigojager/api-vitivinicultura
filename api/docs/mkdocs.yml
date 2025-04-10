@@ -1,10 +1,24 @@
-site_name: "Documentação da API"
+site_name: "API Viniviticultura"
 theme:
   name: material
+  logo: images/Logo-icon-white.png
+  favicon: images/Logo-icon.png
+  custom_dir: overrides
+  features:
+    - content.tabs.link
 docs_dir: .
 site_dir: ../site
+extra_css:
+  - stylesheets/bootstrap.min.css
+  - stylesheets/styles.min.css
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
 nav:
-  - Apresentação: apresentacao.md
+  - Apresentação: index.md
   - Documentação da API: documentacao_api.md
   - Fluxo de Scraping: fluxo_scraping.md
   - Modelos de Dados: modelos_dados.md

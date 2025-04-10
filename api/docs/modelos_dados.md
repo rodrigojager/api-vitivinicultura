@@ -2,12 +2,8 @@
 
 ## Modelos
 
-> [!WARNING]
->
-> Como os retornos são iguais para algumas páginas, em alguns casos isso resultou em uma única classe para 2 páginas diferentes. Essa abordagem foi feita pensando em seguir o princípio DRY (Don't Repeat Yourself), ainda que isso viole os princípios OCP (Open-closed principle) e o SRP (Single Responsability Principle) do **SO**LID. Essa escolha deliberada visa simplificar o código e como aqui está sendo utilizado apenas para fins acadêmicos, não foi considerada prejudicial para o resultado final.
->
-
-
+!!! warning "Atenção"
+    Como os retornos são iguais para algumas páginas, em alguns casos isso resultou em uma única classe para 2 páginas diferentes. Essa abordagem foi feita pensando em seguir o princípio DRY (Don't Repeat Yourself), ainda que isso viole os princípios OCP (Open-closed principle) e o SRP (Single Responsability Principle) do **SO**LID. Essa escolha deliberada visa simplificar o código e como aqui está sendo utilizado apenas para fins acadêmicos, não foi considerada prejudicial para o resultado final.
 
 ### 1. `Production_or_Commercialization`
 

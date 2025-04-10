@@ -17,7 +17,7 @@ Uma vez que voce já tenha se [registrado](/registration), você precisa obter u
 
 Em posse do token, voce pode proceder com a requisição aos demais endpoints, passando via **GET** o ano do qual voce deseja obter os dados.
 
-![fluxo_api](C:\Users\Rodrigo\Desktop\Pós Machine Learning\api-vitivinicultura\api\docs\images\fluxo_api.svg)
+![fluxo_api](images/fluxo_api.svg)
 
 
 
@@ -33,14 +33,98 @@ Autentica um usuário e retorna um token de acesso.
 - **password**: Senha do usuário (string, obrigatório).
 
 #### Exemplo de Requisição
-```http
-POST /login
-Content-Type: application/x-www-form-urlencoded
 
-username=usuario_exemplo&password=senha_exemplo
-```
+=== "C#"
+    ```csharp
+    using System.Net.Http;
+    using System.Threading.Tasks;
+
+    public async Task<string> Login(string username, string password)
+    {
+        using (var client = new HttpClient())
+        {
+            var values = new Dictionary<string, string>
+            {
+                { "username", username },
+                { "password", password }
+            };
+    
+            var content = new FormUrlEncodedContent(values);
+            var response = await client.PostAsync("http://yourapi.com/login", content);
+            return await response.Content.ReadAsStringAsync();
+        }
+    }
+    ```
+=== "Python"
+    ```python
+    import requests
+
+    def login(username, password):
+        url = 'http://yourapi.com/login'
+        data = {'username': username, 'password': password}
+        response = requests.post(url, data=data)
+        return response.json()
+    ```
+=== "Javascript"
+    ```javascript
+    async function login(username, password) {
+        const response = await fetch('http://yourapi.com/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'username': username,
+                'password': password
+            })
+        });
+        return await response.json();
+    }
+    ```
+=== "PHP"
+    ```php
+    function login($username, $password) {
+        $url = 'http://yourapi.com/login';
+        $data = http_build_query(['username' => $username, 'password' => $password]);
+
+        $options = [
+            'http' => [
+                'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
+                'method' => 'POST',
+                'content' => $data,
+            ],
+        ];
+    
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        return json_decode($result, true);
+    }
+    ```
+=== "cURL"
+    ```bash
+    curl -X POST http://yourapi.com/login \
+        -H "Content-Type: application/x-www-form-urlencoded" \
+        -d "username=usuario_exemplo&password=senha_exemplo"
+    ```
+=== "Ruby"
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    def login(username, password)
+        uri = URI.parse("http://yourapi.com/login")
+        request = Net::HTTP::Post.new(uri)
+        request.set_form_data({"username" => username, "password" => password})
+    
+        response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+            http.request(request)
+        end
+        JSON.parse(response.body)
+    end
+    ```
 
 #### Exemplo de Resposta
+
 ```json
 {
   "access_token": "token_de_acesso",
@@ -56,12 +140,79 @@ Retorna dados sobre a produção de vinhos, sucos e derivados.
 - **year**: Ano de referência (integer, obrigatório).
 
 #### Exemplo de Requisição
-```http
-GET /production?year=2020
-Authorization: Bearer token_de_acesso
-```
+
+=== "C#"
+    ```csharp
+    public async Task<string> GetProduction(int year, string token)
+    {
+        using (var client = new HttpClient())
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await client.GetAsync($"http://yourapi.com/production?year={year}");
+            return await response.Content.ReadAsStringAsync();
+        }
+    }
+    ```
+=== "Python"
+    ```python
+    def get_production(year, token):
+        url = f'http://yourapi.com/production?year={year}'
+        headers = {'Authorization': f'Bearer {token}'}
+        response = requests.get(url, headers=headers)
+        return response.json()
+    ```
+=== "Javascript"
+    ```javascript
+    async function getProduction(year, token) {
+        const response = await fetch(`http://yourapi.com/production?year=${year}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return await response.json();
+    }
+    ```
+=== "PHP"
+    ```php
+    function getProduction($year, $token) {
+        $url = "http://yourapi.com/production?year=$year";
+        $options = [
+            'http' => [
+                'header' => "Authorization: Bearer $token\r\n",
+                'method' => 'GET',
+            ],
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        return json_decode($result, true);
+    }
+    ```
+=== "cURL"
+    ```bash
+    curl -X GET "http://yourapi.com/production?year=2020" \
+        -H "Authorization: Bearer token_de_acesso"
+    ```
+=== "Ruby"
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    def get_production(year, token)
+        uri = URI.parse("http://yourapi.com/production?year=#{year}")
+        request = Net::HTTP::Get.new(uri)
+        request["Authorization"] = "Bearer #{token}"
+    
+        response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+            http.request(request)
+        end
+        JSON.parse(response.body)
+    end
+    ```
 
 #### Exemplo de Resposta
+
 ```json
 [
   {
@@ -83,12 +234,79 @@ Retorna a quantidade de uvas processadas.
 - **year**: Ano de referência (integer, obrigatório).
 
 #### Exemplo de Requisição
-```http
-GET /processing?year=2020
-Authorization: Bearer token_de_acesso
-```
+
+=== "C#"
+    ```csharp
+    public async Task<string> GetProcessing(int year, string token)
+    {
+        using (var client = new HttpClient())
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await client.GetAsync($"http://yourapi.com/processing?year={year}");
+            return await response.Content.ReadAsStringAsync();
+        }
+    }
+    ```
+=== "Python"
+    ```python
+    def get_processing(year, token):
+        url = f'http://yourapi.com/processing?year={year}'
+        headers = {'Authorization': f'Bearer {token}'}
+        response = requests.get(url, headers=headers)
+        return response.json()
+    ```
+=== "Javascript"
+    ```javascript
+    async function getProcessing(year, token) {
+        const response = await fetch(`http://yourapi.com/processing?year=${year}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return await response.json();
+    }
+    ```
+=== "PHP"
+    ```php
+    function getProcessing($year, $token) {
+        $url = "http://yourapi.com/processing?year=$year";
+        $options = [
+            'http' => [
+                'header' => "Authorization: Bearer $token\r\n",
+                'method' => 'GET',
+            ],
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        return json_decode($result, true);
+    }
+    ```
+=== "cURL"
+    ```bash
+    curl -X GET "http://yourapi.com/processing?year=2020" \
+        -H "Authorization: Bearer token_de_acesso"
+    ```
+=== "Ruby"
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    def get_processing(year, token)
+        uri = URI.parse("http://yourapi.com/processing?year=#{year}")
+        request = Net::HTTP::Get.new(uri)
+        request["Authorization"] = "Bearer #{token}"
+    
+        response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+            http.request(request)
+        end
+        JSON.parse(response.body)
+    end
+    ```
 
 #### Exemplo de Resposta
+
 ```json
 [
   {
@@ -111,12 +329,79 @@ Retorna dados sobre a comercialização de vinhos e derivados.
 - **year**: Ano de referência (integer, obrigatório).
 
 #### Exemplo de Requisição
-```http
-GET /commercialization?year=2020
-Authorization: Bearer token_de_acesso
-```
+
+=== "C#"
+    ```csharp
+    public async Task<string> GetCommercialization(int year, string token)
+    {
+        using (var client = new HttpClient())
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await client.GetAsync($"http://yourapi.com/commercialization?year={year}");
+            return await response.Content.ReadAsStringAsync();
+        }
+    }
+    ```
+=== "Python"
+    ```python
+    def get_commercialization(year, token):
+        url = f'http://yourapi.com/commercialization?year={year}'
+        headers = {'Authorization': f'Bearer {token}'}
+        response = requests.get(url, headers=headers)
+        return response.json()
+    ```
+=== "Javascript"
+    ```javascript
+    async function getCommercialization(year, token) {
+        const response = await fetch(`http://yourapi.com/commercialization?year=${year}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return await response.json();
+    }
+    ```
+=== "PHP"
+    ```php
+    function getCommercialization($year, $token) {
+        $url = "http://yourapi.com/commercialization?year=$year";
+        $options = [
+            'http' => [
+                'header' => "Authorization: Bearer $token\r\n",
+                'method' => 'GET',
+            ],
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        return json_decode($result, true);
+    }
+    ```
+=== "cURL"
+    ```bash
+    curl -X GET "http://yourapi.com/commercialization?year=2020" \
+        -H "Authorization: Bearer token_de_acesso"
+    ```
+=== "Ruby"
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    def get_commercialization(year, token)
+        uri = URI.parse("http://yourapi.com/commercialization?year=#{year}")
+        request = Net::HTTP::Get.new(uri)
+        request["Authorization"] = "Bearer #{token}"
+    
+        response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+            http.request(request)
+        end
+        JSON.parse(response.body)
+    end
+    ```
 
 #### Exemplo de Resposta
+
 ```json
 [
   {
@@ -138,12 +423,79 @@ Retorna dados sobre a importação de derivados de uva.
 - **year**: Ano de referência (integer, obrigatório).
 
 #### Exemplo de Requisição
-```http
-GET /importing?year=2020
-Authorization: Bearer token_de_acesso
-```
+
+=== "C#"
+    ```csharp
+    public async Task<string> GetImporting(int year, string token)
+    {
+        using (var client = new HttpClient())
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await client.GetAsync($"http://yourapi.com/importing?year={year}");
+            return await response.Content.ReadAsStringAsync();
+        }
+    }
+    ```
+=== "Python"
+    ```python
+    def get_importing(year, token):
+        url = f'http://yourapi.com/importing?year={year}'
+        headers = {'Authorization': f'Bearer {token}'}
+        response = requests.get(url, headers=headers)
+        return response.json()
+    ```
+=== "Javascript"
+    ```javascript
+    async function getImporting(year, token) {
+        const response = await fetch(`http://yourapi.com/importing?year=${year}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return await response.json();
+    }
+    ```
+=== "PHP"
+    ```php
+    function getImporting($year, $token) {
+        $url = "http://yourapi.com/importing?year=$year";
+        $options = [
+            'http' => [
+                'header' => "Authorization: Bearer $token\r\n",
+                'method' => 'GET',
+            ],
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        return json_decode($result, true);
+    }
+    ```
+=== "cURL"
+    ```bash
+    curl -X GET "http://yourapi.com/importing?year=2020" \
+        -H "Authorization: Bearer token_de_acesso"
+    ```
+=== "Ruby"
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    def get_importing(year, token)
+        uri = URI.parse("http://yourapi.com/importing?year=#{year}")
+        request = Net::HTTP::Get.new(uri)
+        request["Authorization"] = "Bearer #{token}"
+    
+        response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+            http.request(request)
+        end
+        JSON.parse(response.body)
+    end
+    ```
 
 #### Exemplo de Resposta
+
 ```json
 [
   {
@@ -167,12 +519,79 @@ Retorna dados sobre a exportação de derivados de uva.
 - **year**: Ano de referência (integer, obrigatório).
 
 #### Exemplo de Requisição
-```http
-GET /exporting?year=2020
-Authorization: Bearer token_de_acesso
-```
+
+=== "C#"
+    ```csharp
+    public async Task<string> GetExporting(int year, string token)
+    {
+        using (var client = new HttpClient())
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await client.GetAsync($"http://yourapi.com/exporting?year={year}");
+            return await response.Content.ReadAsStringAsync();
+        }
+    }
+    ```
+=== "Python"
+    ```python
+    def get_exporting(year, token):
+        url = f'http://yourapi.com/exporting?year={year}'
+        headers = {'Authorization': f'Bearer {token}'}
+        response = requests.get(url, headers=headers)
+        return response.json()
+    ```
+=== "Javascript"
+    ```javascript
+    async function getExporting(year, token) {
+        const response = await fetch(`http://yourapi.com/exporting?year=${year}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return await response.json();
+    }
+    ```
+=== "PHP"
+    ```php
+    function getExporting($year, $token) {
+        $url = "http://yourapi.com/exporting?year=$year";
+        $options = [
+            'http' => [
+                'header' => "Authorization: Bearer $token\r\n",
+                'method' => 'GET',
+            ],
+        ];
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        return json_decode($result, true);
+    }
+    ```
+=== "cURL"
+    ```bash
+    curl -X GET "http://yourapi.com/exporting?year=2020" \
+        -H "Authorization: Bearer token_de_acesso"
+    ```
+=== "Ruby"
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    def get_exporting(year, token)
+        uri = URI.parse("http://yourapi.com/exporting?year=#{year}")
+        request = Net::HTTP::Get.new(uri)
+        request["Authorization"] = "Bearer #{token}"
+    
+        response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+            http.request(request)
+        end
+        JSON.parse(response.body)
+    end
+    ```
 
 #### Exemplo de Resposta
+
 ```json
 [
   {

@@ -26,10 +26,7 @@ footer.footer-registration-spacing{
 p.p-footer-margin{
     margin-bottom: 20px;margin-top: 0px;
 }
-body.custom-swagger { margin: 0; padding: 0; }
-#swagger-ui.custom-swagger { width: 100%; height: 70vh; }
-#snippets.custom-swagger { margin-bottom: 150px; }
-
-.modal-ux{
-    background:#ecfaf4 !important;
-  }
+.md-header__button.md-icon > a.nav-link {
+  font-size: .6rem !important;
+  font-weight: bold !important;
+}
