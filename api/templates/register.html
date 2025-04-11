@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Register - Brand</title>
+    <title>Register - Jager</title>
     <link rel="icon" type="image/png" sizes="591x591" href="assets/img/Logo-icon.png">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.min.css">
@@ -33,7 +33,7 @@
                 <form id="registerForm" method="post" action="/register">
                     <div class="mb-3"><label class="form-label label-register" for="username">Usuário</label><input class="form-control item" type="text" id="username" name="username" data-bs-theme="light"></div>
                     <div class="mb-3"><label class="form-label label-register" for="password">Senha</label><input class="form-control item" type="password" id="password" name="password" data-bs-theme="light"></div>
-                    <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                    <div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
                     <div class="mb-3"></div><button class="btn btn-primary" id="btn-submit-register" type="submit">REGISTRAR</button>
                 </form>
             </div>

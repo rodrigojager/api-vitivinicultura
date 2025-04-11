@@ -50,7 +50,7 @@ Autentica um usuário e retorna um token de acesso.
             };
     
             var content = new FormUrlEncodedContent(values);
-            var response = await client.PostAsync("http://yourapi.com/login", content);
+            var response = await client.PostAsync("https://jager.lat/login", content);
             return await response.Content.ReadAsStringAsync();
         }
     }
@@ -60,7 +60,7 @@ Autentica um usuário e retorna um token de acesso.
     import requests
 
     def login(username, password):
-        url = 'http://yourapi.com/login'
+        url = 'https://jager.lat/login'
         data = {'username': username, 'password': password}
         response = requests.post(url, data=data)
         return response.json()
@@ -68,7 +68,7 @@ Autentica um usuário e retorna um token de acesso.
 === "Javascript"
     ```javascript
     async function login(username, password) {
-        const response = await fetch('http://yourapi.com/login', {
+        const response = await fetch('https://jager.lat/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -84,7 +84,7 @@ Autentica um usuário e retorna um token de acesso.
 === "PHP"
     ```php
     function login($username, $password) {
-        $url = 'http://yourapi.com/login';
+        $url = 'https://jager.lat/login';
         $data = http_build_query(['username' => $username, 'password' => $password]);
 
         $options = [
@@ -102,7 +102,7 @@ Autentica um usuário e retorna um token de acesso.
     ```
 === "cURL"
     ```bash
-    curl -X POST http://yourapi.com/login \
+    curl -X POST https://jager.lat/login \
         -H "Content-Type: application/x-www-form-urlencoded" \
         -d "username=usuario_exemplo&password=senha_exemplo"
     ```
@@ -112,7 +112,7 @@ Autentica um usuário e retorna um token de acesso.
     require 'uri'
 
     def login(username, password)
-        uri = URI.parse("http://yourapi.com/login")
+        uri = URI.parse("https://jager.lat/login")
         request = Net::HTTP::Post.new(uri)
         request.set_form_data({"username" => username, "password" => password})
     
@@ -148,7 +148,7 @@ Retorna dados sobre a produção de vinhos, sucos e derivados.
         using (var client = new HttpClient())
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = await client.GetAsync($"http://yourapi.com/production?year={year}");
+            var response = await client.GetAsync($"https://jager.lat/production?year={year}");
             return await response.Content.ReadAsStringAsync();
         }
     }
@@ -156,7 +156,7 @@ Retorna dados sobre a produção de vinhos, sucos e derivados.
 === "Python"
     ```python
     def get_production(year, token):
-        url = f'http://yourapi.com/production?year={year}'
+        url = f'https://jager.lat/production?year={year}'
         headers = {'Authorization': f'Bearer {token}'}
         response = requests.get(url, headers=headers)
         return response.json()
@@ -164,7 +164,7 @@ Retorna dados sobre a produção de vinhos, sucos e derivados.
 === "Javascript"
     ```javascript
     async function getProduction(year, token) {
-        const response = await fetch(`http://yourapi.com/production?year=${year}`, {
+        const response = await fetch(`https://jager.lat/production?year=${year}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -176,7 +176,7 @@ Retorna dados sobre a produção de vinhos, sucos e derivados.
 === "PHP"
     ```php
     function getProduction($year, $token) {
-        $url = "http://yourapi.com/production?year=$year";
+        $url = "https://jager.lat/production?year=$year";
         $options = [
             'http' => [
                 'header' => "Authorization: Bearer $token\r\n",
@@ -191,7 +191,7 @@ Retorna dados sobre a produção de vinhos, sucos e derivados.
     ```
 === "cURL"
     ```bash
-    curl -X GET "http://yourapi.com/production?year=2020" \
+    curl -X GET "https://jager.lat/production?year=2020" \
         -H "Authorization: Bearer token_de_acesso"
     ```
 === "Ruby"
@@ -200,7 +200,7 @@ Retorna dados sobre a produção de vinhos, sucos e derivados.
     require 'uri'
 
     def get_production(year, token)
-        uri = URI.parse("http://yourapi.com/production?year=#{year}")
+        uri = URI.parse("https://jager.lat/production?year=#{year}")
         request = Net::HTTP::Get.new(uri)
         request["Authorization"] = "Bearer #{token}"
     
@@ -242,7 +242,7 @@ Retorna a quantidade de uvas processadas.
         using (var client = new HttpClient())
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = await client.GetAsync($"http://yourapi.com/processing?year={year}");
+            var response = await client.GetAsync($"https://jager.lat/processing?year={year}");
             return await response.Content.ReadAsStringAsync();
         }
     }
@@ -250,7 +250,7 @@ Retorna a quantidade de uvas processadas.
 === "Python"
     ```python
     def get_processing(year, token):
-        url = f'http://yourapi.com/processing?year={year}'
+        url = f'https://jager.lat/processing?year={year}'
         headers = {'Authorization': f'Bearer {token}'}
         response = requests.get(url, headers=headers)
         return response.json()
@@ -258,7 +258,7 @@ Retorna a quantidade de uvas processadas.
 === "Javascript"
     ```javascript
     async function getProcessing(year, token) {
-        const response = await fetch(`http://yourapi.com/processing?year=${year}`, {
+        const response = await fetch(`https://jager.lat/processing?year=${year}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -270,7 +270,7 @@ Retorna a quantidade de uvas processadas.
 === "PHP"
     ```php
     function getProcessing($year, $token) {
-        $url = "http://yourapi.com/processing?year=$year";
+        $url = "https://jager.lat/processing?year=$year";
         $options = [
             'http' => [
                 'header' => "Authorization: Bearer $token\r\n",
@@ -285,7 +285,7 @@ Retorna a quantidade de uvas processadas.
     ```
 === "cURL"
     ```bash
-    curl -X GET "http://yourapi.com/processing?year=2020" \
+    curl -X GET "https://jager.lat/processing?year=2020" \
         -H "Authorization: Bearer token_de_acesso"
     ```
 === "Ruby"
@@ -294,7 +294,7 @@ Retorna a quantidade de uvas processadas.
     require 'uri'
 
     def get_processing(year, token)
-        uri = URI.parse("http://yourapi.com/processing?year=#{year}")
+        uri = URI.parse("https://jager.lat/processing?year=#{year}")
         request = Net::HTTP::Get.new(uri)
         request["Authorization"] = "Bearer #{token}"
     
@@ -337,7 +337,7 @@ Retorna dados sobre a comercialização de vinhos e derivados.
         using (var client = new HttpClient())
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = await client.GetAsync($"http://yourapi.com/commercialization?year={year}");
+            var response = await client.GetAsync($"https://jager.lat/commercialization?year={year}");
             return await response.Content.ReadAsStringAsync();
         }
     }
@@ -345,7 +345,7 @@ Retorna dados sobre a comercialização de vinhos e derivados.
 === "Python"
     ```python
     def get_commercialization(year, token):
-        url = f'http://yourapi.com/commercialization?year={year}'
+        url = f'https://jager.lat/commercialization?year={year}'
         headers = {'Authorization': f'Bearer {token}'}
         response = requests.get(url, headers=headers)
         return response.json()
@@ -353,7 +353,7 @@ Retorna dados sobre a comercialização de vinhos e derivados.
 === "Javascript"
     ```javascript
     async function getCommercialization(year, token) {
-        const response = await fetch(`http://yourapi.com/commercialization?year=${year}`, {
+        const response = await fetch(`https://jager.lat/commercialization?year=${year}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -365,7 +365,7 @@ Retorna dados sobre a comercialização de vinhos e derivados.
 === "PHP"
     ```php
     function getCommercialization($year, $token) {
-        $url = "http://yourapi.com/commercialization?year=$year";
+        $url = "https://jager.lat/commercialization?year=$year";
         $options = [
             'http' => [
                 'header' => "Authorization: Bearer $token\r\n",
@@ -380,7 +380,7 @@ Retorna dados sobre a comercialização de vinhos e derivados.
     ```
 === "cURL"
     ```bash
-    curl -X GET "http://yourapi.com/commercialization?year=2020" \
+    curl -X GET "https://jager.lat/commercialization?year=2020" \
         -H "Authorization: Bearer token_de_acesso"
     ```
 === "Ruby"
@@ -389,7 +389,7 @@ Retorna dados sobre a comercialização de vinhos e derivados.
     require 'uri'
 
     def get_commercialization(year, token)
-        uri = URI.parse("http://yourapi.com/commercialization?year=#{year}")
+        uri = URI.parse("https://jager.lat/commercialization?year=#{year}")
         request = Net::HTTP::Get.new(uri)
         request["Authorization"] = "Bearer #{token}"
     
@@ -431,7 +431,7 @@ Retorna dados sobre a importação de derivados de uva.
         using (var client = new HttpClient())
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = await client.GetAsync($"http://yourapi.com/importing?year={year}");
+            var response = await client.GetAsync($"https://jager.lat/importing?year={year}");
             return await response.Content.ReadAsStringAsync();
         }
     }
@@ -439,7 +439,7 @@ Retorna dados sobre a importação de derivados de uva.
 === "Python"
     ```python
     def get_importing(year, token):
-        url = f'http://yourapi.com/importing?year={year}'
+        url = f'https://jager.lat/importing?year={year}'
         headers = {'Authorization': f'Bearer {token}'}
         response = requests.get(url, headers=headers)
         return response.json()
@@ -447,7 +447,7 @@ Retorna dados sobre a importação de derivados de uva.
 === "Javascript"
     ```javascript
     async function getImporting(year, token) {
-        const response = await fetch(`http://yourapi.com/importing?year=${year}`, {
+        const response = await fetch(`https://jager.lat/importing?year=${year}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -459,7 +459,7 @@ Retorna dados sobre a importação de derivados de uva.
 === "PHP"
     ```php
     function getImporting($year, $token) {
-        $url = "http://yourapi.com/importing?year=$year";
+        $url = "https://jager.lat/importing?year=$year";
         $options = [
             'http' => [
                 'header' => "Authorization: Bearer $token\r\n",
@@ -474,7 +474,7 @@ Retorna dados sobre a importação de derivados de uva.
     ```
 === "cURL"
     ```bash
-    curl -X GET "http://yourapi.com/importing?year=2020" \
+    curl -X GET "https://jager.lat/importing?year=2020" \
         -H "Authorization: Bearer token_de_acesso"
     ```
 === "Ruby"
@@ -483,7 +483,7 @@ Retorna dados sobre a importação de derivados de uva.
     require 'uri'
 
     def get_importing(year, token)
-        uri = URI.parse("http://yourapi.com/importing?year=#{year}")
+        uri = URI.parse("https://jager.lat/importing?year=#{year}")
         request = Net::HTTP::Get.new(uri)
         request["Authorization"] = "Bearer #{token}"
     
@@ -527,7 +527,7 @@ Retorna dados sobre a exportação de derivados de uva.
         using (var client = new HttpClient())
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = await client.GetAsync($"http://yourapi.com/exporting?year={year}");
+            var response = await client.GetAsync($"https://jager.lat/exporting?year={year}");
             return await response.Content.ReadAsStringAsync();
         }
     }
@@ -535,7 +535,7 @@ Retorna dados sobre a exportação de derivados de uva.
 === "Python"
     ```python
     def get_exporting(year, token):
-        url = f'http://yourapi.com/exporting?year={year}'
+        url = f'https://jager.lat/exporting?year={year}'
         headers = {'Authorization': f'Bearer {token}'}
         response = requests.get(url, headers=headers)
         return response.json()
@@ -543,7 +543,7 @@ Retorna dados sobre a exportação de derivados de uva.
 === "Javascript"
     ```javascript
     async function getExporting(year, token) {
-        const response = await fetch(`http://yourapi.com/exporting?year=${year}`, {
+        const response = await fetch(`https://jager.lat/exporting?year=${year}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -555,7 +555,7 @@ Retorna dados sobre a exportação de derivados de uva.
 === "PHP"
     ```php
     function getExporting($year, $token) {
-        $url = "http://yourapi.com/exporting?year=$year";
+        $url = "https://jager.lat/exporting?year=$year";
         $options = [
             'http' => [
                 'header' => "Authorization: Bearer $token\r\n",
@@ -570,7 +570,7 @@ Retorna dados sobre a exportação de derivados de uva.
     ```
 === "cURL"
     ```bash
-    curl -X GET "http://yourapi.com/exporting?year=2020" \
+    curl -X GET "https://jager.lat/exporting?year=2020" \
         -H "Authorization: Bearer token_de_acesso"
     ```
 === "Ruby"
@@ -579,7 +579,7 @@ Retorna dados sobre a exportação de derivados de uva.
     require 'uri'
 
     def get_exporting(year, token)
-        uri = URI.parse("http://yourapi.com/exporting?year=#{year}")
+        uri = URI.parse("https://jager.lat/exporting?year=#{year}")
         request = Net::HTTP::Get.new(uri)
         request["Authorization"] = "Bearer #{token}"
     

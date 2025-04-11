@@ -2,7 +2,7 @@ import os
 import datetime, sqlalchemy, databases, bcrypt, httpx
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Depends, status, Query, Request, Form
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
@@ -52,6 +52,10 @@ app = FastAPI(
 )
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 templates = Jinja2Templates(directory="templates")
+
+@app.get("/", include_in_schema=False)
+async def root():
+	return RedirectResponse(url="/docs/")
 
 @app.get("/api", include_in_schema=False)
 async def custom_swagger_ui_html():
@@ -126,8 +130,8 @@ async def get_exporting(
 
 @app.get("/registration", response_class=HTMLResponse, include_in_schema=False)
 async def register_form(request: Request):
-    """Serve o formulário de registro HTML."""
-    return templates.TemplateResponse("register.html", {"request": request})
+    site_key = os.getenv("RECAPTCHA_SITE_KEY")
+    return templates.TemplateResponse("register.html", {"request": request, "site_key": site_key})
 
 @app.post("/register", include_in_schema=False)
 async def register(
