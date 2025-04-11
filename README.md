@@ -2,6 +2,8 @@
 
 Esta API serve como um serviço de backend para gerenciar informações sobre a produção, processamento, comercialização, importação e exportação de uvas e seus derivados no Estado do Rio Grande do Sul. Ela fornece um conjunto de endpoints que permitem que os clientes interajam com os dados e realizem operações específicas.
 
+A documentação completa, junto com a API está disponível em: [https://jager.lat](https://jager.lat)
+
 ## Introdução
 
 Os dados retornados pela API são obtidos através de scraping utilizando a biblioteca playwright que executa a ação no momento da requisição. Antes de começar a utilizar a API, voce precisa se Registrar em /registration
