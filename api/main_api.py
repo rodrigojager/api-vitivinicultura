@@ -1,5 +1,7 @@
 import os
 import datetime, sqlalchemy, databases, bcrypt, httpx
+import boto3
+from datetime import datetime, timezone
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Depends, status, Query, Request, Form
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
@@ -52,6 +54,25 @@ app = FastAPI(
 )
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 templates = Jinja2Templates(directory="templates")
+
+def update_last_access():
+    ec2 = boto3.client('ec2', region_name='us-east-2')
+    instance_id = 'i-080ad863d18ba54b4'
+    
+    ec2.create_tags(
+        Resources=[instance_id],
+        Tags=[{
+            'Key': 'LastAccessTime',
+            'Value': datetime.now(timezone.utc).isoformat()
+        }]
+    )
+
+@app.middleware("http")
+async def update_access_middleware(request: Request, call_next):
+    if request.url.path.startswith("/assets") or request.url.path.endswith((".css", ".js", ".png", ".svg")):
+        return await call_next(request)
+    update_last_access()
+    return await call_next(request)
 
 @app.get("/", include_in_schema=False)
 async def root():
