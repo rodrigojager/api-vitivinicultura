@@ -93,7 +93,7 @@ async def login(username: str, password: str):
     token = create_access_token({"sub": username})
     return {"access_token": token, "token_type": "bearer"}
 
-@app.get("/production", summary="Produção de vinhos, sucos e derivados do Rio Grande do Sul", tags=["Production"],response_model=List[Production_or_Commercialization])
+@app.get("/production", summary="Produção de vinhos, sucos e derivados do Rio Grande do Sul", tags=["Production"],response_model=List[Production])
 async def get_production(
     year: int = Query(..., description="Ano obrigatório"),
     user: dict = Depends(jwt_auth)
@@ -115,7 +115,7 @@ async def get_processing(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/commercialization", summary="Comercialização de vinhos e derivados no Rio Grande do Sul", tags=["Commercialization"], response_model=List[Production_or_Commercialization])
+@app.get("/commercialization", summary="Comercialização de vinhos e derivados no Rio Grande do Sul", tags=["Commercialization"], response_model=List[Commercialization])
 async def get_commercialization(
     year: int = Query(..., description="Ano obrigatório"),
     user: dict = Depends(jwt_auth)
