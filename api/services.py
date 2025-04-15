@@ -72,9 +72,7 @@ async def process_production(rows: List[Locator], year: int, subopt: Optional[in
                     year=year
                 )
             )
-            else:
-                count_itens_category = 0
-            count_itens_category = count_itens_category+1
+            count_itens_category = 1
             last_category = (await first_column.text_content()).strip()
             last_quantity = convert_numeric_string_to_float(await columns.nth(1).text_content())
         else:
