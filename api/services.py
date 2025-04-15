@@ -220,9 +220,9 @@ dictionary_mapping_by_page = {
 
 # MAPEAMENTO DE QUAL MÉTODO PRINCIPAL DEVE SER EXECUTADO POR CADA PÁGINA
 method_mapping_by_page = {
-    'opt_02': process_production_or_commercialization,
+    'opt_02': process_production,
     'opt_03': process_processing,
-    'opt_04': process_production_or_commercialization,
+    'opt_04': process_commercialization,
     'opt_05': process_importing_or_exporting,
     'opt_06': process_importing_or_exporting
 }
