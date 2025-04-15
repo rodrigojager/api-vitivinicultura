@@ -1,7 +1,7 @@
 import re
 from typing import List, Optional
 from playwright.async_api import async_playwright, Page, Locator
-from models import Production_or_Commercialization, Processing, Importing_or_Exporting
+from models import Production, Commercialization, Processing, Importing_or_Exporting
 from utils import convert_numeric_string_to_float
 from mappers import dictionary_processing_suboption_to_group, dictionary_importing_suboption_to_group, dictionary_exporting_suboption_to_group
 
@@ -51,20 +51,38 @@ async def process_rows_by_option(option: str, rows: List[Locator], year: int, su
     except KeyError:
         raise ValueError(f"Option '{option}' not implemented.")
 
-async def process_production_or_commercialization(rows: List[Locator], year: int, subopt: Optional[int]) -> List[Production_or_Commercialization]:
-    productions_or_commercialization: List[Production_or_Commercialization] = []
+async def process_production(rows: List[Locator], year: int, subopt: Optional[int]) -> List[Production]:
+    productions: List[Production] = []
     last_category = ""
+    last_quantity = 0
+    count_itens_category = 0
     for row in rows:
         columns = row.locator("td")
         first_column = columns.nth(0)
         classes = await first_column.get_attribute("class")
         if classes == "tb_item":
+            if(count_itens_category == 1):
+                productions.append(
+                Production(
+                    category=last_category,
+                    product=last_category.title(),
+                    quantity=last_quantity,
+                    unit="L",
+                    measurement="volume",
+                    year=year
+                )
+            )
+            else:
+                count_itens_category = 0
+            count_itens_category = count_itens_category+1
             last_category = (await first_column.text_content()).strip()
+            last_quantity = convert_numeric_string_to_float(await columns.nth(1).text_content())
         else:
+            count_itens_category = 0
             product = (await first_column.text_content()).strip()
             quantity = convert_numeric_string_to_float(await columns.nth(1).text_content())
-            productions_or_commercialization.append(
-                Production_or_Commercialization(
+            productions.append(
+                Production(
                     category=last_category,
                     product=product,
                     quantity=quantity,
@@ -73,7 +91,49 @@ async def process_production_or_commercialization(rows: List[Locator], year: int
                     year=year
                 )
             )
-    return productions_or_commercialization
+    return productions
+
+async def process_commercialization(rows: List[Locator], year: int, subopt: Optional[int]) -> List[Commercialization]:
+    commercializations: List[Commercialization] = []
+    last_category = ""
+    last_quantity = 0
+    count_itens_category = 0
+    for row in rows:
+        columns = row.locator("td")
+        first_column = columns.nth(0)
+        classes = await first_column.get_attribute("class")
+        if classes == "tb_item":
+            if(count_itens_category == 1):
+                commercializations.append(
+                Commercialization(
+                    category=last_category,
+                    product=last_category.title(),
+                    quantity=last_quantity,
+                    unit="L",
+                    measurement="volume",
+                    year=year
+                )
+            )
+            else:
+                count_itens_category = 0
+            count_itens_category = count_itens_category+1
+            last_category = (await first_column.text_content()).strip()
+            last_quantity = convert_numeric_string_to_float(await columns.nth(1).text_content())
+        else:
+            count_itens_category = 0
+            product = (await first_column.text_content()).strip()
+            quantity = convert_numeric_string_to_float(await columns.nth(1).text_content())
+            commercializations.append(
+                Commercialization(
+                    category=last_category,
+                    product=product,
+                    quantity=quantity,
+                    unit="L",
+                    measurement="volume",
+                    year=year
+                )
+            )
+    return commercializations
 
 async def process_processing(rows: List[Locator], year: int, subopt: int) -> List[Processing]:
     group = dictionary_processing_suboption_to_group[subopt]

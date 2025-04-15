@@ -1,6 +1,14 @@
 from pydantic import BaseModel, Field
 
-class Production_or_Commercialization(BaseModel):
+class Production(BaseModel):
+    category: str = Field(..., description="Categoria do produto", example="VINHO DE MESA")
+    product: str = Field(..., description="Tipo do produto", example="Tinto")
+    quantity: float = Field(..., description="Quantidade anual", example="103916391")
+    unit: str = Field(..., description="Unidade de medida usada como referência na quantidade", example="L")
+    measurement: str = Field(..., description="Grandeza medida pela unidade", example="volume")
+    year: int = Field(..., description="Ano de referência do dado informado", example="2020")
+
+class Commercialization(BaseModel):
     category: str = Field(..., description="Categoria do produto", example="VINHO DE MESA")
     product: str = Field(..., description="Tipo do produto", example="Tinto")
     quantity: float = Field(..., description="Quantidade anual", example="103916391")

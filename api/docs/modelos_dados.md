@@ -5,9 +5,9 @@
 !!! warning "Atenção"
     Como os retornos são iguais para algumas páginas, em alguns casos isso resultou em uma única classe para 2 páginas diferentes. Essa abordagem foi feita pensando em seguir o princípio DRY (Don't Repeat Yourself), ainda que isso viole os princípios OCP (Open-closed principle) e o SRP (Single Responsability Principle) do **SO**LID. Essa escolha deliberada visa simplificar o código e como aqui está sendo utilizado apenas para fins acadêmicos, não foi considerada prejudicial para o resultado final.
 
-### 1. `Production_or_Commercialization`
+### 1. `Production`
 
-Esta classe representa os dados relacionados à produção ou comercialização de produtos derivados de uva. 
+Esta classe representa os dados relacionados à produção de derivados de uva. 
 
 #### Atributos
 - **category**: Categoria do produto (ex: VINHO DE MESA).
@@ -17,7 +17,19 @@ Esta classe representa os dados relacionados à produção ou comercialização 
 - **measurement**: Grandeza medida (ex: volume).
 - **year**: Ano de referência (ex: 2020).
 
-### 2. `Processing`
+### 2. `Commercialization`
+
+Esta classe representa os dados relacionados à comercialização de produtos derivados de uva. 
+
+#### Atributos
+- **category**: Categoria do produto (ex: VINHO DE MESA).
+- **product**: Tipo do produto (ex: Tinto).
+- **quantity**: Quantidade anual (ex: 103916391).
+- **unit**: Unidade de medida (ex: L).
+- **measurement**: Grandeza medida (ex: volume).
+- **year**: Ano de referência (ex: 2020).
+
+### 3. `Processing`
 Esta classe representa os dados relacionados ao processamento de uvas.
 
 #### Atributos
@@ -29,7 +41,7 @@ Esta classe representa os dados relacionados ao processamento de uvas.
 - **measurement**: Grandeza medida (ex: mass).
 - **year**: Ano de referência (ex: 2020).
 
-### 3. `Importing_or_Exporting`
+### 4. `Importing_or_Exporting`
 Esta classe representa os dados relacionados à importação ou exportação de produtos derivados de uva.
 
 #### Atributos
