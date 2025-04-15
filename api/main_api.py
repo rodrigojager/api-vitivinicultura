@@ -24,7 +24,7 @@ users = sqlalchemy.Table(
     sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
     sqlalchemy.Column("username", sqlalchemy.String, unique=True, index=True, nullable=False),
     sqlalchemy.Column("password_hash", sqlalchemy.String, nullable=False),
-    sqlalchemy.Column("created_at", sqlalchemy.DateTime, default=datetime.now(datetime.timezone.utc)),
+    sqlalchemy.Column("created_at", sqlalchemy.DateTime, default=datetime.now(timezone.utc)),
 )
 engine = sqlalchemy.create_engine(DATABASE_URL)
 metadata.create_all(engine)
