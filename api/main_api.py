@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import List
 from auth import jwt_auth, create_access_token, verify_password
 from services import run_scraping
-from models import Production_or_Commercialization, Processing, Importing_or_Exporting
+from models import Production,Commercialization, Processing, Importing_or_Exporting
 
 # Configuração do banco
 DATABASE_URL = os.getenv("DATABASE_URL")
