@@ -12,3 +12,4 @@ python-multipart
 httpx
 mkdocs
 mkdocs-material
+boto3
