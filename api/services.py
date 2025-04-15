@@ -85,6 +85,7 @@ async def process_commercialization(rows: List[Locator], year: int, subopt: Opti
         first_column = columns.nth(0)
         classes = await first_column.get_attribute("class")
         if classes == "tb_item":
+            last_category = (await first_column.text_content()).strip()
             if(i < (length_of_row-1)):
                 next_row = rows[i+1]
                 next_column = next_row.locator("td")
@@ -101,8 +102,6 @@ async def process_commercialization(rows: List[Locator], year: int, subopt: Opti
                             year=year
                         )
                     )
-            else:
-                last_category = (await first_column.text_content()).strip()
         else:
             product = (await first_column.text_content()).strip()
             quantity = convert_numeric_string_to_float(await columns.nth(1).text_content())
