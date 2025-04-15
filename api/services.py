@@ -54,29 +54,13 @@ async def process_rows_by_option(option: str, rows: List[Locator], year: int, su
 async def process_production(rows: List[Locator], year: int, subopt: Optional[int]) -> List[Production]:
     productions: List[Production] = []
     last_category = ""
-    last_quantity = 0
-    count_itens_category = 0
     for row in rows:
         columns = row.locator("td")
         first_column = columns.nth(0)
         classes = await first_column.get_attribute("class")
         if classes == "tb_item":
-            if(count_itens_category == 1):
-                productions.append(
-                Production(
-                    category=last_category,
-                    product=last_category.title(),
-                    quantity=last_quantity,
-                    unit="L",
-                    measurement="volume",
-                    year=year
-                )
-            )
-            count_itens_category = 1
             last_category = (await first_column.text_content()).strip()
-            last_quantity = convert_numeric_string_to_float(await columns.nth(1).text_content())
         else:
-            count_itens_category = 0
             product = (await first_column.text_content()).strip()
             quantity = convert_numeric_string_to_float(await columns.nth(1).text_content())
             productions.append(
@@ -94,31 +78,32 @@ async def process_production(rows: List[Locator], year: int, subopt: Optional[in
 async def process_commercialization(rows: List[Locator], year: int, subopt: Optional[int]) -> List[Commercialization]:
     commercializations: List[Commercialization] = []
     last_category = ""
-    last_quantity = 0
-    count_itens_category = 0
-    for row in rows:
+    length_of_row = len(rows)
+    for i in range(length_of_row):
+        row = rows[i]
         columns = row.locator("td")
         first_column = columns.nth(0)
         classes = await first_column.get_attribute("class")
         if classes == "tb_item":
-            if(count_itens_category == 1):
-                commercializations.append(
-                Commercialization(
-                    category=last_category,
-                    product=last_category.title(),
-                    quantity=last_quantity,
-                    unit="L",
-                    measurement="volume",
-                    year=year
-                )
-            )
+            if(i < (length_of_row-1)):
+                next_row = rows[i+1]
+                next_column = next_row.locator("td")
+                first_column_of_next_row = next_column.nth(0)
+                next_classes = await first_column_of_next_row.get_attribute("class")
+                if next_classes == "tb_item":
+                    commercializations.append(
+                        Commercialization(
+                            category=(await first_column.text_content()).strip(),
+                            product=(await first_column.text_content()).strip().title(),
+                            quantity=convert_numeric_string_to_float(await columns.nth(1).text_content()),
+                            unit="L",
+                            measurement="volume",
+                            year=year
+                        )
+                    )
             else:
-                count_itens_category = 0
-            count_itens_category = count_itens_category+1
-            last_category = (await first_column.text_content()).strip()
-            last_quantity = convert_numeric_string_to_float(await columns.nth(1).text_content())
+                last_category = (await first_column.text_content()).strip()
         else:
-            count_itens_category = 0
             product = (await first_column.text_content()).strip()
             quantity = convert_numeric_string_to_float(await columns.nth(1).text_content())
             commercializations.append(
