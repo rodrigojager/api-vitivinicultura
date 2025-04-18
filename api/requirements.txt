@@ -13,5 +13,4 @@ httpx
 mkdocs
 mkdocs-material
 boto3
-mkdocs-mermaid2-plugin
 pymdown-extensions
