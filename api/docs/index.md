@@ -2,7 +2,7 @@
 
 Este projeto traz uma API que serve como um serviço de backend para gerenciar informações sobre a produção, processamento, comercialização, importação e exportação de uvas e seus derivados no Estado do Rio Grande do Sul. Ela fornece um conjunto de endpoints que permitem que os clientes interajam com os dados e realizem operações específicas.
 
-A solução está disponível no GitHub do desenvolvedor: [API Vitivinicultura no GitHub]https://github.com/rodrigojager/api-vitivinicultura
+A solução está disponível no GitHub do desenvolvedor: [API Vitivinicultura no GitHub](https://github.com/rodrigojager/api-vitivinicultura)
 
 ## Introdução
 
