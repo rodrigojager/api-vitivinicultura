@@ -14,11 +14,16 @@ extra_css:
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+    custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
 nav:
   - Apresentação: index.md
+  - Arquitetura do Projeto: arquitetura_projeto.md
   - Documentação da API: documentacao_api.md
   - Fluxo de Scraping: fluxo_scraping.md
   - Modelos de Dados: modelos_dados.md

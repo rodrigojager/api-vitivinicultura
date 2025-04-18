@@ -2,6 +2,8 @@
 
 Este projeto traz uma API que serve como um serviço de backend para gerenciar informações sobre a produção, processamento, comercialização, importação e exportação de uvas e seus derivados no Estado do Rio Grande do Sul. Ela fornece um conjunto de endpoints que permitem que os clientes interajam com os dados e realizem operações específicas.
 
+A solução está disponível no GitHub do desenvolvedor: https://github.com/rodrigojager/api-vitivinicultura
+
 ## Introdução
 
 Os dados retornados pela API são obtidos através de scraping utilizando a biblioteca playwright que executa a ação no momento da requisição. Antes de começar a utilizar a API, voce precisa se [Registrar](/registration)
@@ -31,6 +33,7 @@ O usuário autenticado pode usar os endpoints para iniciar o scraping de dados a
 ## Estrutura da documentação
 
 - Apresentação: Essa página de apresentação do projeto
+- Arquitetura do Projeto: Uma explicação de como está estruturada a infraestrutura da publicação da solução
 - Documentação da API: Documentação da api com seus endpoints e fluxos de uso
 - Fluxo de Scraping: Explicação de como foi feito o scraping e desenvolvimento do código por trás da API.
 - Modelos de Dados: Apresentação dos modelos utilizados para armazenar os dados retornados pelos endpoints e da estrutura do banco de dados (que é responsável apenas por armazenar dados das credenciais dos usuários).
