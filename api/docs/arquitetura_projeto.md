@@ -17,8 +17,8 @@ A escolha de Docker para a arquitetura foi feita visando padronizar o ambiente n
 
 ```mermaid
     flowchart TD
-        A[Usuário] --> B["www.jager.lat"]
-        B["www.jager.lat"] --> C[S3 Bucket - Site Estático]
+        A[Usuário] --> B[www&period;jager.lat]
+        B[www&period;jager.lat] --> C[S3 Bucket - Site Estático]
         C --> D[HTML com JavaScript]
         D --> E{jager.lat está online?}
         
@@ -42,7 +42,7 @@ A escolha de Docker para a arquitetura foi feita visando padronizar o ambiente n
         
         subgraph "Configuração DNS"
         T[jager.lat] -->|A record| U[Elastic IP da EC2]
-        V["www.jager.lat"] -->|CNAME| W[S3 Website URL]
+        V[www&period;jager.lat] -->|CNAME| W[S3 Website URL]
         X[wake.jager.lat] -->|CNAME| Y[API Gateway Endpoint]
         end
 
