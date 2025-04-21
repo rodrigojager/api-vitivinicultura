@@ -164,8 +164,8 @@ async def register(
 
     secret_key = os.getenv("RECAPTCHA_SECRET_KEY")
     if not secret_key:
-         raise HTTPException(status_code=500, detail="Chave secreta do reCAPTCHA não configurada no servidor.")
-         
+        raise HTTPException(status_code=500, detail="Chave secreta do reCAPTCHA não configurada no servidor.")
+
     recaptcha_verify_url = "https://www.google.com/recaptcha/api/siteverify"
     async with httpx.AsyncClient() as client:
         try:
@@ -175,7 +175,7 @@ async def register(
             })
             r.raise_for_status()
         except httpx.RequestError as exc:
-             raise HTTPException(status_code=500, detail=f"Erro ao contatar o serviço reCAPTCHA: {exc}")
+            raise HTTPException(status_code=500, detail=f"Erro ao contatar o serviço reCAPTCHA: {exc}")
 
     result = r.json()
     if not result.get("success"):
@@ -191,7 +191,7 @@ async def register(
     query = users.insert().values(
         username=username,
         password_hash=hashed.decode('utf-8'),
-        created_at=datetime.datetime.utcnow()
+        created_at=datetime.utcnow()
     )
     try:
         await database.execute(query)
