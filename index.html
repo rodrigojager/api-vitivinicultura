@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificando servidor Jäger...</title>
+  <!-- Adiciona Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script>
+    const destino = "https://jager.lat";
+    const statusElement = () => document.getElementById("status");
+    const msgElement = () => document.getElementById("msg");
+
+    function setStatus(iconClass, text) {
+      if (statusElement()) {
+        statusElement().innerHTML = `<i class="fas ${iconClass}"></i> ${text}`;
+      }
+    }
+
+    function setMessage(text) {
+       if (msgElement()) {
+         msgElement().innerText = text;
+       }
+    }
+
+    function verificarServidor() {
+      setStatus("fa-spinner fa-spin", "Verificando se o servidor está ativo...");
+      setMessage("Tentando conectar ao servidor...");
+      fetch(destino, { mode: "no-cors", cache: "no-store" }) // no-cors ainda pode dar erro se a rede falhar, mas ok para checagem inicial
+        .then(() => {
+          setStatus("fa-check-circle", "Servidor online!");
+          setMessage("Redirecionando...");
+          window.location.href = destino;
+        })
+        .catch(() => {
+          // Se falhar a primeira vez, tenta iniciar
+          iniciarEC2();
+        });
+    }
+
+    function iniciarEC2() {
+      setStatus("fa-server", "Iniciando o servidor...");
+      setMessage("Enviando comando para iniciar a instância EC2. Isso pode levar alguns minutos.");
+      fetch("https://b8en7cep77.execute-api.us-east-2.amazonaws.com", { mode: "no-cors" })
+        .then(() => {
+          // Sucesso ao chamar a lambda, agora começa a verificar
+          setStatus("fa-spinner fa-spin", "Aguardando inicialização do servidor...");
+          setMessage("Servidor iniciando. Verificando status periodicamente...");
+          setTimeout(verificarStatusServidorPeriodicamente, 5000); // Começa a verificar após 5 segundos
+        })
+        .catch((err) => {
+          setStatus("fa-exclamation-triangle", "Erro");
+          setMessage("Erro ao tentar enviar o comando para iniciar o servidor.");
+          console.error("Erro ao chamar a API Lambda:", err);
+        });
+    }
+
+    function verificarStatusServidorPeriodicamente() {
+       setStatus("fa-spinner fa-spin", "Verificando status do servidor...");
+       setMessage("Aguardando o servidor ficar online...");
+       fetch(destino, { mode: "no-cors", cache: "no-store" })
+         .then(() => {
+           setStatus("fa-check-circle", "Servidor online!");
+           setMessage("Redirecionando...");
+           window.location.href = destino;
+         })
+         .catch(() => {
+           // Servidor ainda não está pronto, tenta novamente em 1 segundo
+           setTimeout(verificarStatusServidorPeriodicamente, 1000);
+         });
+    }
+
+    // Inicia o processo quando a página carrega
+    window.onload = verificarServidor;
+
+  </script>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      background: #f6f6f6;
+      margin: 0;
+    }
+    #status {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    #status .fas {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="status"><i class="fas fa-spinner fa-spin"></i> Carregando...</h2>
+  <p id="msg">Preparando para verificar o status do servidor.</p>
+</body>
+</html>
